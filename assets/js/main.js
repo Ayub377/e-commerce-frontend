@@ -3773,12 +3773,12 @@ $(function() {
     }
 
     // Update Quick Header Button if present
-    var $btn = $('#quickModeToggleBtn');
+    var $btn = $('#quickModeToggleBtn, .quick_theme_mode_toggle');
     if ($btn.length) {
-      var icon = mode === 'dark' ? 'fa-moon' : (mode === 'light' ? 'fa-sun' : 'fa-desktop');
+      var icon = effective === 'dark' ? 'fa-moon-o' : (effective === 'light' ? 'fa-sun-o' : 'fa-desktop');
       var label = mode.charAt(0).toUpperCase() + mode.slice(1);
       $btn.html('<i class="fa ' + icon + '"></i> <span class="mode_label_text">' + label + '</span>');
-      $btn.attr('title', 'Current: ' + label + ' Mode (Click to switch)');
+      $btn.attr('title', 'Theme Mode: ' + label + ' (Click to switch)');
     }
 
     if (config.color && config.color !== 'red') {
@@ -3861,6 +3861,20 @@ $(function() {
       }
     });
   }
+
+  // Quick theme mode toggle handler
+  $(document).on('click', '#quickModeToggleBtn, .quick_theme_mode_toggle', function(e) {
+    e.preventDefault();
+    var cfg = getThemeConfig();
+    var current = cfg.themeMode || 'system';
+    var next = current === 'light' ? 'dark' : (current === 'dark' ? 'system' : 'light');
+    cfg.themeMode = next;
+    saveThemeConfig(cfg);
+    applyTheme(cfg);
+    if (typeof window.antomiSyncSettingsUI === 'function') {
+      window.antomiSyncSettingsUI(cfg);
+    }
+  });
 
   // App Root Resolver for multi-folder structure
   function getAppRoot() {

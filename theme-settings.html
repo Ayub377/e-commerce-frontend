@@ -189,6 +189,178 @@
         justify-content: space-between;
         z-index: 999;
       }
+
+      /* Dynamic Brand Primary CSS Variables */
+      :root {
+        --theme-primary: #e8272b;
+      }
+      body[data-theme-color="blue"] { --theme-primary: #0066cc; }
+      body[data-theme-color="green"] { --theme-primary: #2e7d32; }
+      body[data-theme-color="gold"] { --theme-primary: #b8860b; }
+      body[data-theme-color="purple"] { --theme-primary: #7928ca; }
+      body[data-theme-color="dark"] { --theme-primary: #1a1a1a; }
+      body[data-theme-color="pink"] { --theme-primary: #e91e63; }
+      body[data-theme-color="red"], body:not([data-theme-color]) { --theme-primary: #e8272b; }
+
+      /* Dynamic Accent Color Highlights */
+      .industry_choice_card.active, .blog_choice_card.active, .shop_choice_card.active, .product_choice_card.active,
+      .header_opt_card.active, .categories_opt_card.active, .color_option_card.active, .mode_opt_card.active {
+        border-color: var(--theme-primary, #e8272b) !important;
+      }
+      .industry_badge_active {
+        background: var(--theme-primary, #e8272b) !important;
+      }
+      .btn-danger, .btn-primary, #applyAndSwitchThemeBtn, #launchStorefrontBtn {
+        background-color: var(--theme-primary, #e8272b) !important;
+        border-color: var(--theme-primary, #e8272b) !important;
+      }
+      .btn-outline-danger {
+        color: var(--theme-primary, #e8272b) !important;
+        border-color: var(--theme-primary, #e8272b) !important;
+      }
+      .btn-outline-danger:hover {
+        background-color: var(--theme-primary, #e8272b) !important;
+        color: #fff !important;
+      }
+
+      /* Quick Theme Bar Styling */
+      .quick_theme_bar_card {
+        border-left: 4px solid var(--theme-primary, #e8272b);
+      }
+      .quick_swatch {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: inline-block;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 1px #cbd5e1;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .quick_swatch:hover {
+        transform: scale(1.2);
+      }
+      .quick_swatch.active {
+        box-shadow: 0 0 0 2px #232f3e, 0 0 8px rgba(0,0,0,0.3);
+        transform: scale(1.2);
+      }
+
+      /* Quick Mode Button Group */
+      .quick-mode-btn.active {
+        background: #232f3e;
+        color: #fff;
+        border-color: #232f3e;
+      }
+
+      /* Toast Notification */
+      .theme_toast {
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        background: #1e293b;
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 999999;
+        transform: translateY(-50px);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+        border-left: 4px solid var(--theme-primary, #e8272b);
+      }
+      .theme_toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Dark Mode Adaptations for Theme Settings */
+      body[data-theme-mode="dark"] .settings_panel_wrap {
+        background: #0b1120 !important;
+      }
+      body[data-theme-mode="dark"] .settings_card {
+        background: #1e293b !important;
+        border-color: #334155 !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.35) !important;
+      }
+      body[data-theme-mode="dark"] .settings_card_header {
+        background: #0f172a !important;
+        border-bottom: 1px solid #334155 !important;
+      }
+      body[data-theme-mode="dark"] .settings_card_body {
+        background: #1e293b !important;
+        color: #cbd5e1 !important;
+      }
+      body[data-theme-mode="dark"] .industry_choice_card,
+      body[data-theme-mode="dark"] .blog_choice_card,
+      body[data-theme-mode="dark"] .shop_choice_card,
+      body[data-theme-mode="dark"] .product_choice_card,
+      body[data-theme-mode="dark"] .header_opt_card,
+      body[data-theme-mode="dark"] .categories_opt_card,
+      body[data-theme-mode="dark"] .color_option_card {
+        background: #0f172a !important;
+        border-color: #334155 !important;
+        color: #cbd5e1 !important;
+      }
+      body[data-theme-mode="dark"] .industry_choice_card h4,
+      body[data-theme-mode="dark"] .blog_choice_card h4,
+      body[data-theme-mode="dark"] .shop_choice_card h4,
+      body[data-theme-mode="dark"] .product_choice_card h4,
+      body[data-theme-mode="dark"] .header_opt_card strong,
+      body[data-theme-mode="dark"] .categories_opt_card strong {
+        color: #f1f5f9 !important;
+      }
+      body[data-theme-mode="dark"] .industry_choice_card p,
+      body[data-theme-mode="dark"] .blog_choice_card p,
+      body[data-theme-mode="dark"] .shop_choice_card p,
+      body[data-theme-mode="dark"] .product_choice_card p {
+        color: #94a3b8 !important;
+      }
+      body[data-theme-mode="dark"] .industry_choice_card.active,
+      body[data-theme-mode="dark"] .blog_choice_card.active,
+      body[data-theme-mode="dark"] .shop_choice_card.active,
+      body[data-theme-mode="dark"] .product_choice_card.active,
+      body[data-theme-mode="dark"] .header_opt_card.active,
+      body[data-theme-mode="dark"] .categories_opt_card.active {
+        background: rgba(30, 41, 59, 0.8) !important;
+      }
+      body[data-theme-mode="dark"] .industry_tags span {
+        background: #334155 !important;
+        color: #e2e8f0 !important;
+      }
+      body[data-theme-mode="dark"] .action_bar_sticky {
+        background: #1e293b !important;
+        border-color: #334155 !important;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+      }
+      body[data-theme-mode="dark"] #activeSettingSummary {
+        color: #f8fafc !important;
+      }
+      body[data-theme-mode="dark"] .form-select,
+      body[data-theme-mode="dark"] .form-control {
+        background: #0f172a !important;
+        color: #f8fafc !important;
+        border-color: #334155 !important;
+      }
+      body[data-theme-mode="dark"] .quick-mode-btn {
+        background: #0f172a;
+        color: #cbd5e1;
+        border-color: #334155;
+      }
+      body[data-theme-mode="dark"] .quick-mode-btn.active {
+        background: #334155;
+        color: #fff;
+        border-color: #475569;
+      }
+      body[data-theme-mode="dark"] .quick_swatch.active {
+        box-shadow: 0 0 0 2px #38bdf8, 0 0 8px rgba(56, 189, 248, 0.4);
+      }
+      body[data-theme-mode="dark"] hr {
+        border-color: #334155 !important;
+      }
     </style>
 </head>
 <body>
@@ -209,10 +381,11 @@
                         </div>
                         <div class="header_top_settings text-right">
                             <ul>
+                                <li><a href="javascript:void(0)" class="quick_theme_mode_toggle"><i class="fa fa-adjust"></i> Theme Mode</a></li>
+                                <li><a href="#quickThemeBar"><i class="fa fa-paint-brush"></i> Change Theme</a></li>
                                 <li><a href="#">Store Locations</a></li>
                                 <li><a href="#">Track Your Order</a></li>
                                 <li>Hotline: <a href="tel:+0123456789">0123456789 </a></li>
-                                <li>Quality Guarantee Of Products</li>
                             </ul>
                         </div>
                         <div class="search_container">
@@ -291,10 +464,11 @@
                         <div class="col-lg-8 col-md-7">
                             <div class="header_top_settings text-right">
                                 <ul>
+                                    <li><a href="javascript:void(0)" id="quickModeToggleBtn" title="Theme Mode"><i class="fa fa-adjust"></i> <span class="mode_label_text">System</span></a></li>
+                                    <li><a href="#quickThemeBar"><i class="fa fa-paint-brush"></i> Theme: <strong id="headerActiveThemeName">Electronics</strong></a></li>
                                     <li><a href="#">Store Locations</a></li>
                                     <li><a href="#">Track Your Order</a></li>
                                     <li>Hotline: <a href="tel:+0123456789">0123456789 </a></li>
-                                    <li>Quality Guarantee Of Products</li>
                                 </ul>
                             </div>
                         </div>
@@ -596,101 +770,184 @@
 <div class="settings_panel_wrap">
     <div class="container">
 
-        <!-- 1. INDUSTRY & HOMEPAGE SELECTION -->
+        <!-- QUICK THEME CHANGE CONTROL CENTER -->
+        <div class="settings_card quick_theme_bar_card" id="quickThemeBar">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-sliders"></i> Active Theme Change &amp; Quick Controls</h3>
+                <span class="badge" id="activeThemeBadge" style="background:var(--theme-primary, #e8272b); font-size:13px; padding:6px 14px;"><i class="fa fa-check-circle me-1"></i> Active: Electronics &amp; Gadgets (Home 1)</span>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-4 col-md-12">
+                        <label class="form-label fw-bold small text-uppercase text-muted mb-1"><i class="fa fa-th-large me-1"></i> Change Storefront Theme</label>
+                        <select class="form-select form-control" id="quickThemeSelector" style="height: 44px; font-weight: 600; cursor: pointer;">
+                            <option value="electronics" data-page="index.html" data-color="red" data-header="default">⚡ Theme 1: Electronics &amp; Gadgets (index.html)</option>
+                            <option value="fashion" data-page="index-2.html" data-color="dark" data-header="default">👗 Theme 2: Fashion &amp; Apparel (index-2.html)</option>
+                            <option value="furniture" data-page="index-3.html" data-color="gold" data-header="default">🛋️ Theme 3: Furniture &amp; Interior (index-3.html)</option>
+                            <option value="beauty" data-page="index-4.html" data-color="pink" data-header="dark">💄 Theme 4: Cosmetics &amp; Skincare (index-4.html)</option>
+                            <option value="sport" data-page="index-5.html" data-color="blue" data-header="default">🏃 Theme 5: Sports &amp; Wearables (index-5.html)</option>
+                            <option value="gaming" data-page="index-6.html" data-color="purple" data-header="dark">🎮 Theme 6: Gaming &amp; Hardware (index-6.html)</option>
+                            <option value="grocery" data-page="index-7.html" data-color="green" data-header="default">🍏 Theme 7: Grocery &amp; Supermarket (index-7.html)</option>
+                        </select>
+                        <div class="small text-muted mt-1">Select any theme layout to switch in real time.</div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <label class="form-label fw-bold small text-uppercase text-muted mb-1"><i class="fa fa-adjust me-1"></i> Theme Color Mode</label>
+                        <div class="btn-group w-100" role="group" id="quickModeButtonGroup">
+                            <button type="button" class="btn btn-outline-secondary btn-sm quick-mode-btn" data-mode="light"><i class="fa fa-sun-o"></i> Light</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm quick-mode-btn" data-mode="dark"><i class="fa fa-moon-o"></i> Dark</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm quick-mode-btn" data-mode="system"><i class="fa fa-desktop"></i> Auto</button>
+                        </div>
+                        <div class="small text-muted mt-1">Light, dark, or system OS mode.</div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <label class="form-label fw-bold small text-uppercase text-muted mb-1"><i class="fa fa-tint me-1"></i> Accent Palette</label>
+                        <div class="d-flex gap-2 align-items-center pt-1" id="quickColorSwatches">
+                            <span class="quick_swatch active" data-color="red" style="background:#e8272b;" title="Antomi Red"></span>
+                            <span class="quick_swatch" data-color="blue" style="background:#0066cc;" title="Royal Blue"></span>
+                            <span class="quick_swatch" data-color="green" style="background:#2e7d32;" title="Emerald Green"></span>
+                            <span class="quick_swatch" data-color="gold" style="background:#b8860b;" title="Luxury Gold"></span>
+                            <span class="quick_swatch" data-color="purple" style="background:#7928ca;" title="Neon Purple"></span>
+                            <span class="quick_swatch" data-color="dark" style="background:#1a1a1a;" title="Midnight Dark"></span>
+                            <span class="quick_swatch" data-color="pink" style="background:#e91e63;" title="Rose Pink"></span>
+                        </div>
+                        <div class="small text-muted mt-1">Instant brand primary color.</div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 text-end d-flex flex-column gap-2 justify-content-center">
+                        <button type="button" class="btn btn-danger w-100 fw-bold" id="applyAndSwitchThemeBtn" style="padding: 10px 18px; font-size:14px; background:var(--theme-primary, #e8272b); border-color:var(--theme-primary, #e8272b);">
+                            <i class="fa fa-rocket me-1"></i> Switch &amp; Launch Theme
+                        </button>
+                        <a href="index.html" target="_blank" class="btn btn-outline-secondary btn-sm w-100" id="previewActiveThemeBtn">
+                            <i class="fa fa-external-link me-1"></i> Live Storefront Preview
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. THEME PRESETS & HOMEPAGE SELECTION -->
         <div class="settings_card">
             <div class="settings_card_header">
-                <h3><i class="fa fa-th-large"></i> 1. Choose Target Industry & Homepage Layout</h3>
-                <span class="badge bg-danger" style="font-size:12px; padding:6px 12px;">7 Home Styles Built-In</span>
+                <h3><i class="fa fa-th-large"></i> 1. Choose Theme Preset &amp; Storefront Layout</h3>
+                <span class="badge bg-danger" style="font-size:12px; padding:6px 12px;">7 Themes Built-In</span>
             </div>
             <div class="settings_card_body">
                 <div class="row g-4">
-                    <!-- Industry 1: Electronics -->
+                    <!-- Theme 1: Electronics -->
                     <div class="col-lg-4 col-md-6">
                         <div class="industry_choice_card active" data-industry="electronics" data-page="index.html" data-color="red" data-header="default">
-                            <span class="industry_badge_active">Selected</span>
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
                             <img src="https://placehold.co/400x220/e8272b/ffffff?text=Electronics+Storefront" class="industry_img_thumb" alt="Electronics">
-                            <h4>Electronics & Gadgets (Home 1 Layout)</h4>
+                            <h4>Electronics &amp; Gadgets (Theme 1)</h4>
                             <p>Classic mega marketplace. Vertical categories menu, multi-tab deal sliders, and 5-column product carousels.</p>
                             <div class="industry_tags">
-                                <span>Home 1</span><span>Laptops</span><span>Phones</span><span>TV & Audio</span>
+                                <span>Home 1</span><span>Laptops</span><span>Phones</span><span>TV &amp; Audio</span>
+                            </div>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Industry 2: Fashion -->
+                    <!-- Theme 2: Fashion -->
                     <div class="col-lg-4 col-md-6">
                         <div class="industry_choice_card" data-industry="fashion" data-page="index-2.html" data-color="dark" data-header="default">
-                            <span class="industry_badge_active">Selected</span>
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
                             <img src="https://placehold.co/400x220/232f3e/ffffff?text=Fashion+Storefront" class="industry_img_thumb" alt="Fashion">
-                            <h4>Fashion & Apparel (Home 2 Layout)</h4>
+                            <h4>Fashion &amp; Apparel (Theme 2)</h4>
                             <p>Sportswear and clothing storefront. Wide modern banner layouts, featured apparel grids, and seasonal collections.</p>
                             <div class="industry_tags">
                                 <span>Home 2</span><span>Men</span><span>Women</span><span>Sportswear</span>
                             </div>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index-2.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Industry 3: Furniture -->
+                    <!-- Theme 3: Furniture -->
                     <div class="col-lg-4 col-md-6">
                         <div class="industry_choice_card" data-industry="furniture" data-page="index-3.html" data-color="gold" data-header="default">
-                            <span class="industry_badge_active">Selected</span>
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
                             <img src="https://placehold.co/400x220/b8860b/ffffff?text=Furniture+Storefront" class="industry_img_thumb" alt="Furniture">
-                            <h4>Furniture & Home Decor (Home 3 Layout)</h4>
+                            <h4>Furniture &amp; Home Decor (Theme 3)</h4>
                             <p>Warm lifestyle theme. Multi-banner promo rows, living room categories, lighting, and interior accessories.</p>
                             <div class="industry_tags">
                                 <span>Home 3</span><span>Sofas</span><span>Chairs</span><span>Decor</span>
                             </div>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index-3.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Industry 4: Cosmetics -->
+                    <!-- Theme 4: Cosmetics -->
                     <div class="col-lg-4 col-md-6">
                         <div class="industry_choice_card" data-industry="beauty" data-page="index-4.html" data-color="pink" data-header="dark">
-                            <span class="industry_badge_active">Selected</span>
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
                             <img src="https://placehold.co/400x220/e91e63/ffffff?text=Cosmetics+Storefront" class="industry_img_thumb" alt="Beauty">
-                            <h4>Cosmetics & Skincare (Home 4 Layout)</h4>
+                            <h4>Cosmetics &amp; Skincare (Theme 4)</h4>
                             <p>Clean beauty aesthetic with high-contrast dark navigation, product discount tiles, and beauty bundles.</p>
                             <div class="industry_tags">
                                 <span>Home 4</span><span>Skincare</span><span>Fragrance</span><span>Makeup</span>
                             </div>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index-4.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Industry 5: Sports & Tech -->
+                    <!-- Theme 5: Sports & Tech -->
                     <div class="col-lg-4 col-md-6">
                         <div class="industry_choice_card" data-industry="sport" data-page="index-5.html" data-color="blue" data-header="default">
-                            <span class="industry_badge_active">Selected</span>
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
                             <img src="https://placehold.co/400x220/0066cc/ffffff?text=Sports+Storefront" class="industry_img_thumb" alt="Sports">
-                            <h4>Sport Gear & Wearables (Home 5 Layout)</h4>
+                            <h4>Sport Gear &amp; Wearables (Theme 5)</h4>
                             <p>Full-width edge-to-edge hero slider, vertical live ticking countdown deal box, and activewear grids.</p>
                             <div class="industry_tags">
                                 <span>Home 5</span><span>Smartwatches</span><span>Fitness</span><span>Apparel</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Industry 6: Gaming -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="industry_choice_card" data-industry="gaming" data-page="index-6.html" data-color="purple" data-header="dark">
-                            <span class="industry_badge_active">Selected</span>
-                            <img src="https://placehold.co/400x220/7928ca/ffffff?text=Gaming+Storefront" class="industry_img_thumb" alt="Gaming">
-                            <h4>Gaming & PC Hardware (Home 6 Layout)</h4>
-                            <p>Cyberpunk neon accents, dual product showcase, new arrivals tabs, and gaming accessory filters.</p>
-                            <div class="industry_tags">
-                                <span>Home 6</span><span>GPUs</span><span>Consoles</span><span>Keyboards</span>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index-5.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Industry 7: Grocery -->
+                    <!-- Theme 6: Gaming -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="gaming" data-page="index-6.html" data-color="purple" data-header="dark">
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
+                            <img src="https://placehold.co/400x220/7928ca/ffffff?text=Gaming+Storefront" class="industry_img_thumb" alt="Gaming">
+                            <h4>Gaming &amp; PC Hardware (Theme 6)</h4>
+                            <p>Cyberpunk neon accents, dual product showcase, new arrivals tabs, and gaming accessory filters.</p>
+                            <div class="industry_tags">
+                                <span>Home 6</span><span>GPUs</span><span>Consoles</span><span>Keyboards</span>
+                            </div>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index-6.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme 7: Grocery -->
                     <div class="col-lg-4 col-md-6">
                         <div class="industry_choice_card" data-industry="grocery" data-page="index-7.html" data-color="green" data-header="default">
-                            <span class="industry_badge_active">Selected</span>
+                            <span class="industry_badge_active"><i class="fa fa-check"></i> Active</span>
                             <img src="https://placehold.co/400x220/2e7d32/ffffff?text=Grocery+Storefront" class="industry_img_thumb" alt="Grocery">
-                            <h4>Grocery & Supermarket (Home 7 Layout)</h4>
+                            <h4>Grocery &amp; Supermarket (Theme 7)</h4>
                             <p>Vibrant green supermarket layout, flash deal countdown cards, daily fresh produce, and organic food listings.</p>
                             <div class="industry_tags">
                                 <span>Home 7</span><span>Fruits</span><span>Vegetables</span><span>Organic</span>
+                            </div>
+                            <div class="theme_card_actions mt-3 pt-2 border-top d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger select-this-theme-btn flex-grow-1"><i class="fa fa-check me-1"></i> Switch Theme</button>
+                                <a href="index-7.html" target="_blank" class="btn btn-sm btn-outline-secondary preview-theme-link" title="Preview Demo in New Tab"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -1098,10 +1355,29 @@
     </div>
 </div>
 
+<!-- FLOATING THEME TOAST NOTIFICATION -->
+<div class="theme_toast" id="themeToast">
+    <i class="fa fa-check-circle" style="font-size:22px; color:#22c55e;"></i>
+    <div>
+        <strong id="toastTitle" style="font-size:14px; display:block;">Theme Updated</strong>
+        <span class="small" id="toastMessage" style="color:#cbd5e1;">Your theme configuration has been saved.</span>
+    </div>
+</div>
+
 <script src="assets/js/main.js"></script>
 <script>
 (function($) {
     'use strict';
+
+    var THEMES = {
+        'electronics': { name: 'Electronics & Gadgets (Theme 1)', page: 'index.html', defaultColor: 'red', defaultHeader: 'default' },
+        'fashion': { name: 'Fashion & Apparel (Theme 2)', page: 'index-2.html', defaultColor: 'dark', defaultHeader: 'default' },
+        'furniture': { name: 'Furniture & Interior (Theme 3)', page: 'index-3.html', defaultColor: 'gold', defaultHeader: 'default' },
+        'beauty': { name: 'Cosmetics & Skincare (Theme 4)', page: 'index-4.html', defaultColor: 'pink', defaultHeader: 'dark' },
+        'sport': { name: 'Sports & Wearables (Theme 5)', page: 'index-5.html', defaultColor: 'blue', defaultHeader: 'default' },
+        'gaming': { name: 'Gaming & PC Hardware (Theme 6)', page: 'index-6.html', defaultColor: 'purple', defaultHeader: 'dark' },
+        'grocery': { name: 'Grocery & Supermarket (Theme 7)', page: 'index-7.html', defaultColor: 'green', defaultHeader: 'default' }
+    };
 
     var currentConfig = {
         industry: 'electronics',
@@ -1118,6 +1394,19 @@
         blog_page: 'blog/blog.html',
         updated_at: new Date().toISOString()
     };
+
+    var toastTimer = null;
+    function showToast(title, message) {
+        var $toast = $('#themeToast');
+        if (!$toast.length) return;
+        $('#toastTitle').text(title);
+        $('#toastMessage').text(message);
+        $toast.addClass('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() {
+            $toast.removeClass('show');
+        }, 3000);
+    }
 
     // Load from localStorage if present
     try {
@@ -1140,9 +1429,36 @@
     } catch(e) {}
 
     function updateUI() {
+        // Quick Theme Selector Dropdown
+        $('#quickThemeSelector').val(currentConfig.industry);
+
+        // Header Active Theme Label & Badge
+        var themeInfo = THEMES[currentConfig.industry] || { name: currentConfig.industry, page: currentConfig.target_page };
+        $('#activeThemeBadge').html('<i class="fa fa-check-circle me-1"></i> Active: ' + themeInfo.name);
+        $('#headerActiveThemeName').text(themeInfo.name);
+        $('#previewActiveThemeBtn').attr('href', currentConfig.target_page);
+
+        // Quick Mode Buttons
+        var modeVal = currentConfig.theme_mode || 'system';
+        $('.quick-mode-btn').removeClass('active');
+        $('.quick-mode-btn[data-mode="' + modeVal + '"]').addClass('active');
+
+        // Quick Swatches
+        $('.quick_swatch').removeClass('active');
+        $('.quick_swatch[data-color="' + currentConfig.color + '"]').addClass('active');
+
         // Industry cards
-        $('.industry_choice_card').removeClass('active');
-        $('.industry_choice_card[data-industry="' + currentConfig.industry + '"]').addClass('active');
+        $('.industry_choice_card').each(function() {
+            var cardInd = $(this).data('industry');
+            var isCurrent = (cardInd === currentConfig.industry);
+            $(this).toggleClass('active', isCurrent);
+            var $btn = $(this).find('.select-this-theme-btn');
+            if (isCurrent) {
+                $btn.removeClass('btn-outline-danger').addClass('btn-danger').html('<i class="fa fa-check-circle me-1"></i> Current Theme');
+            } else {
+                $btn.removeClass('btn-danger').addClass('btn-outline-danger').html('<i class="fa fa-check me-1"></i> Switch Theme');
+            }
+        });
 
         // Shop style cards
         $('.shop_choice_card').removeClass('active');
@@ -1174,7 +1490,6 @@
         $('input[name="categories_state_radio"]:checked').closest('.categories_opt_card').addClass('active');
 
         // Mode radios
-        var modeVal = currentConfig.theme_mode || 'system';
         $('input[name="color_mode_radio"]').prop('checked', false);
         $('input[name="color_mode_radio"][value="' + modeVal + '"]').prop('checked', true);
         $('.mode_opt_card').removeClass('active');
@@ -1204,7 +1519,7 @@
 
         // Summary text
         $('#activeSettingSummary').text(
-            currentConfig.industry.toUpperCase() + ' Preset • ' + 
+            currentConfig.industry.toUpperCase() + ' Theme • ' + 
             currentConfig.color.toUpperCase() + ' • ' + 
             'Mode: ' + currentConfig.theme_mode.toUpperCase() + ' • ' +
             'Shop: ' + currentConfig.shop_style.toUpperCase() + ' • ' +
@@ -1231,7 +1546,71 @@
         }));
     }
 
+    // Expose sync hook for header toggle
+    window.antomiSyncSettingsUI = function(cfg) {
+        if (cfg && cfg.themeMode) {
+            currentConfig.theme_mode = cfg.themeMode;
+            updateUI();
+        }
+    };
+
     updateUI();
+
+    // Event: Quick Theme Dropdown Change
+    $('#quickThemeSelector').on('change', function() {
+        var val = $(this).val();
+        var themeInfo = THEMES[val];
+        if (themeInfo) {
+            currentConfig.industry = val;
+            currentConfig.target_page = themeInfo.page;
+            currentConfig.color = themeInfo.defaultColor;
+            currentConfig.header_style = themeInfo.defaultHeader;
+            updateUI();
+            showToast('Theme Changed', 'Switched to ' + themeInfo.name);
+        }
+    });
+
+    // Event: Quick Mode Buttons
+    $('.quick-mode-btn').on('click', function(e) {
+        e.preventDefault();
+        var mode = $(this).data('mode');
+        currentConfig.theme_mode = mode;
+        updateUI();
+        showToast('Display Mode Changed', 'Theme set to ' + mode.toUpperCase() + ' mode');
+    });
+
+    // Event: Quick Accent Swatches
+    $('.quick_swatch').on('click', function() {
+        var col = $(this).data('color');
+        currentConfig.color = col;
+        updateUI();
+        showToast('Brand Accent Updated', 'Primary theme color is now ' + col.toUpperCase());
+    });
+
+    // Event: Quick Apply and Switch Button
+    $('#applyAndSwitchThemeBtn').on('click', function(e) {
+        e.preventDefault();
+        updateUI();
+        showToast('Theme Saved', 'Launching ' + (THEMES[currentConfig.industry] ? THEMES[currentConfig.industry].name : currentConfig.industry) + '...');
+        setTimeout(function() {
+            window.location.href = currentConfig.target_page;
+        }, 350);
+    });
+
+    // Event: Click on "Switch Theme" button inside card
+    $('.select-this-theme-btn').on('click', function(e) {
+        e.stopPropagation();
+        var $card = $(this).closest('.industry_choice_card');
+        currentConfig.industry = $card.data('industry');
+        currentConfig.target_page = $card.data('page');
+        currentConfig.color = $card.data('color');
+        if ($card.data('header')) {
+            currentConfig.header_style = $card.data('header');
+        }
+        updateUI();
+        var name = THEMES[currentConfig.industry] ? THEMES[currentConfig.industry].name : currentConfig.industry;
+        showToast('Theme Changed', 'Active theme switched to ' + name);
+    });
 
     // Event: Click Industry Card
     $('.industry_choice_card').on('click', function() {
@@ -1242,6 +1621,8 @@
             currentConfig.header_style = $(this).data('header');
         }
         updateUI();
+        var name = THEMES[currentConfig.industry] ? THEMES[currentConfig.industry].name : currentConfig.industry;
+        showToast('Theme Selected', name + ' preset activated');
     });
 
     // Event: Click Shop Style Card
@@ -1249,6 +1630,7 @@
         currentConfig.shop_style = $(this).data('shop-style');
         currentConfig.shop_page = $(this).data('page');
         updateUI();
+        showToast('Shop Layout Updated', currentConfig.shop_style.toUpperCase() + ' layout selected');
     });
 
     // Event: Click Product Style Card
@@ -1256,6 +1638,7 @@
         currentConfig.product_style = $(this).data('product-style');
         currentConfig.product_page = $(this).data('page');
         updateUI();
+        showToast('Product Layout Updated', currentConfig.product_style.toUpperCase() + ' style selected');
     });
 
     // Event: Click Blog Style Card
@@ -1263,37 +1646,52 @@
         currentConfig.blog_style = $(this).data('blog-style');
         currentConfig.blog_page = $(this).data('page');
         updateUI();
+        showToast('Blog Layout Updated', currentConfig.blog_style.toUpperCase() + ' style selected');
     });
 
     // Event: Click Color Card
     $('.color_option_card').on('click', function() {
         currentConfig.color = $(this).data('color');
         updateUI();
+        showToast('Brand Color Updated', currentConfig.color.toUpperCase() + ' applied');
     });
 
     // Event: Change Header Radio
     $('input[name="header_style_radio"]').on('change', function() {
         currentConfig.header_style = $(this).val();
         updateUI();
+        showToast('Header Architecture Updated', 'Header set to ' + currentConfig.header_style.toUpperCase());
     });
 
     // Event: Change Categories Radio
     $('input[name="categories_state_radio"]').on('change', function() {
         currentConfig.categories_closed = ($(this).val() === 'closed');
         updateUI();
+        showToast('Categories Menu Updated', currentConfig.categories_closed ? 'Closed by default' : 'Open by default');
     });
 
     // Event: Change Color Mode Radio
     $('input[name="color_mode_radio"]').on('change', function() {
         currentConfig.theme_mode = $(this).val();
         updateUI();
+        showToast('Display Mode Updated', currentConfig.theme_mode.toUpperCase() + ' mode enabled');
+    });
+
+    // Event: Mode card click
+    $('.mode_opt_card').on('click', function() {
+        var val = $(this).find('input[name="color_mode_radio"]').val();
+        if (val && val !== currentConfig.theme_mode) {
+            currentConfig.theme_mode = val;
+            updateUI();
+            showToast('Display Mode Updated', val.toUpperCase() + ' mode enabled');
+        }
     });
 
     // Event: Copy JSON
     $('#copyJsonBtn').on('click', function() {
         var jsonText = $('#jsonConfigDisplay').text();
         navigator.clipboard.writeText(jsonText).then(function() {
-            alert('Theme configuration JSON copied to clipboard!');
+            showToast('Copied to Clipboard', 'Theme JSON schema copied successfully!');
         });
     });
 
@@ -1315,6 +1713,7 @@
             updated_at: new Date().toISOString()
         };
         updateUI();
+        showToast('Settings Reset', 'Restored default electronics theme');
     });
 
     // Event: Launch Storefront
