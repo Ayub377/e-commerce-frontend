@@ -1,0 +1,1328 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Theme & Industry Settings Control Panel - Antomi</title>
+    <meta name="description" content="Frontend Industry and Layout Management Center">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+      .settings_panel_wrap {
+        background: #f8f9fa;
+        padding: 50px 0;
+      }
+      .settings_card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        border: 1px solid #e5e7eb;
+        margin-bottom: 30px;
+        overflow: hidden;
+      }
+      .settings_card_header {
+        padding: 20px 25px;
+        background: #232f3e;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .settings_card_header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .settings_card_body {
+        padding: 25px;
+      }
+      .industry_choice_card, .blog_choice_card, .shop_choice_card, .product_choice_card {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 18px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        background: #fff;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .industry_choice_card:hover, .blog_choice_card:hover, .shop_choice_card:hover, .product_choice_card:hover {
+        border-color: #232f3e;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+      }
+      .industry_choice_card.active, .blog_choice_card.active, .shop_choice_card.active, .product_choice_card.active {
+        border-color: #e8272b;
+        background: #fff9f9;
+        box-shadow: 0 4px 14px rgba(232, 39, 43, 0.15);
+      }
+      .blog_choice_card.active .industry_badge_active, .shop_choice_card.active .industry_badge_active, .product_choice_card.active .industry_badge_active {
+        display: block;
+      }
+      .industry_badge_active {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #e8272b;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+        display: none;
+      }
+      .industry_choice_card.active .industry_badge_active {
+        display: block;
+      }
+      .industry_img_thumb {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+      }
+      .industry_choice_card h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #232f3e;
+        margin-bottom: 6px;
+      }
+      .industry_choice_card p {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        flex-grow: 1;
+      }
+      .industry_tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .industry_tags span {
+        background: #f1f3f5;
+        font-size: 11px;
+        padding: 3px 7px;
+        border-radius: 3px;
+        color: #495057;
+      }
+      .color_picker_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+      }
+      .color_option_card {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .color_option_card:hover, .color_option_card.active {
+        border-color: #232f3e;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      .header_opt_card, .categories_opt_card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        transition: all 0.2s ease;
+        border: 2px solid #e5e7eb !important;
+        margin-bottom: 0;
+      }
+      .header_opt_card:hover, .categories_opt_card:hover {
+        border-color: #232f3e !important;
+      }
+      .header_opt_card.active, .categories_opt_card.active {
+        border-color: #e8272b !important;
+        background: #fff9f9;
+      }
+      .header_opt_card p, .categories_opt_card p {
+        flex-grow: 1;
+        margin-bottom: 0;
+        margin-top: 6px;
+      }
+      .header_opt_card strong, .categories_opt_card strong {
+        display: inline;
+      }
+      .color_sample_circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        margin: 0 auto 8px;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 1px #ccc;
+      }
+      .json_preview_box {
+        background: #1e293b;
+        color: #38bdf8;
+        padding: 20px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 13px;
+        max-height: 250px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+      .action_bar_sticky {
+        position: sticky;
+        bottom: 20px;
+        background: #fff;
+        padding: 18px 25px;
+        border-radius: 8px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 999;
+      }
+    </style>
+</head>
+<body>
+<div class="off_canvars_overlay"></div>
+    <div class="Offcanvas_menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="canvas_open">
+                        <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
+                    </div>
+                    <div class="Offcanvas_menu_wrapper">
+                        <div class="canvas_close">
+                            <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
+                        </div>
+                        <div class="antomi_message">
+                            <p>Get free shipping – Free 30 day money back guarantee</p>
+                        </div>
+                        <div class="header_top_settings text-right">
+                            <ul>
+                                <li><a href="#">Store Locations</a></li>
+                                <li><a href="#">Track Your Order</a></li>
+                                <li>Hotline: <a href="tel:+0123456789">0123456789 </a></li>
+                                <li>Quality Guarantee Of Products</li>
+                            </ul>
+                        </div>
+                        <div class="search_container">
+                            <form action="#">
+                                <div class="hover_category">
+                                    <select class="select_option" name="select" id="categori1">
+                                        <option selected value="1">All Categories</option>
+                                        <option value="2">Accessories</option>
+                                        <option value="3">Accessories & More</option>
+                                        <option value="4">Butters & Eggs</option>
+                                        <option value="5">Camera & Video </option>
+                                        <option value="6">Mornitors</option>
+                                        <option value="7">Tablets</option>
+                                        <option value="8">Laptops</option>
+                                        <option value="9">Handbags</option>
+                                        <option value="10">Headphone & Speaker</option>
+                                        <option value="11">Herbs & botanicals</option>
+                                        <option value="12">Vegetables</option>
+                                        <option value="13">Shop</option>
+                                        <option value="14">Laptops & Desktops</option>
+                                        <option value="15">Watchs</option>
+                                        <option value="16">Electronic</option>
+                                    </select>
+                                </div>
+                                <div class="search_box">
+                                    <input placeholder="Search product..." type="text">
+                                    <button type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="menu" class="text-left ">
+                            <ul class="offcanvas_main_menu">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="shop/shop.html">Shop</a></li>
+                                <li><a href="blog/blog.html">blog</a></li>
+                                <li class="menu-item-has-children">
+                                    <a href="account/my-account.html">my account</a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="pages/about.html">About Us</a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="pages/contact.html"> Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="Offcanvas_footer">
+                            <span><a href="#"><i class="fa fa-envelope-o"></i> demo@example.com</a></span>
+                            <ul>
+                                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li class="pinterest"><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Offcanvas menu area end-->
+
+    <!--header area start-->
+    <header>
+        <div class="main_header">
+            <div class="container">
+                <!--header top start-->
+                <div class="header_top">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="antomi_message">
+                                <p>Get free shipping – Free 30 day money back guarantee</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-7">
+                            <div class="header_top_settings text-right">
+                                <ul>
+                                    <li><a href="#">Store Locations</a></li>
+                                    <li><a href="#">Track Your Order</a></li>
+                                    <li>Hotline: <a href="tel:+0123456789">0123456789 </a></li>
+                                    <li>Quality Guarantee Of Products</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--header top start-->
+
+                <!--header middel start-->
+                <div class="header_middle sticky-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-2 col-md-3 col-4">
+                            <div class="logo">
+                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-12">
+                            <div class="main_menu menu_position text-center">
+                                <nav>
+                                    <ul>
+                                        <li><a href="index.html">home</a></li>
+                                        <li><a href="shop/shop.html">shop</a></li>
+                                        <li><a href="blog/blog.html">blog</a></li>
+                                        <li><a href="pages/about.html">About Us</a></li>
+                                        <li><a href="pages/contact.html"> Contact Us</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-7 col-6">
+                            <div class="header_configure_area">
+                                                                <div class="header_account_dropdown_wrap">
+                                    <a href="account/my-account.html" class="header_account_btn" title="My Account">
+                                        <i class="ion-person"></i>
+                                    </a>
+                                    <ul class="header_account_menu">
+                                        <li><a href="account/my-account.html"><i class="fa fa-user"></i> My Account</a></li>
+                                        <li><a href="account/login.html"><i class="fa fa-sign-in"></i> Login / Register</a></li>
+                                        <li><a href="account/checkout.html"><i class="fa fa-credit-card"></i> Checkout</a></li>
+                                        <li><a href="account/compare.html"><i class="fa fa-sliders"></i> Compare</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="theme-settings.html"><i class="fa fa-cog"></i> Theme Settings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="header_wishlist">
+                                    <a href="account/wishlist.html"><i class="ion-android-favorite-outline"></i>
+                                        <span class="wishlist_count">3</span>
+                                    </a>
+                                </div>
+                                <div class="mini_cart_wrapper">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-shopping-bag"></i>
+                                        <span class="cart_price">$152.00 <i class="ion-ios-arrow-down"></i></span>
+                                        <span class="cart_count">2</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--header middel end-->
+
+                <!--mini cart-->
+                <div class="mini_cart">
+                    <div class="cart_close">
+                        <div class="cart_text">
+                            <h3>cart</h3>
+                        </div>
+                        <div class="mini_cart_close">
+                            <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="cart_item">
+                        <div class="cart_img">
+                            <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
+                        </div>
+                        <div class="cart_info">
+                            <a href="#">Primis In Faucibus</a>
+                            <p>Qty: 1 X <span> $60.00 </span></p>
+                        </div>
+                        <div class="cart_remove">
+                            <a href="#"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="cart_item">
+                        <div class="cart_img">
+                            <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
+                        </div>
+                        <div class="cart_info">
+                            <a href="#">Letraset Sheets</a>
+                            <p>Qty: 1 X <span> $60.00 </span></p>
+                        </div>
+                        <div class="cart_remove">
+                            <a href="#"><i class="ion-android-close"></i></a>
+                        </div>
+                    </div>
+                    <div class="mini_cart_table">
+                        <div class="cart_total">
+                            <span>Sub total:</span>
+                            <span class="price">$138.00</span>
+                        </div>
+                        <div class="cart_total mt-10">
+                            <span>total:</span>
+                            <span class="price">$138.00</span>
+                        </div>
+                    </div>
+                    <div class="mini_cart_footer">
+                        <div class="cart_button">
+                            <a href="account/cart.html">View cart</a>
+                        </div>
+                        <div class="cart_button">
+                            <a class="active" href="account/checkout.html">Checkout</a>
+                        </div>
+
+                    </div>
+                </div>
+                <!--mini cart end-->
+
+
+                <!--header bottom satrt-->
+                <div class="header_bottom">
+                    <div class="row align-items-center">
+                        <div class="column1 col-lg-3 col-md-6">
+                            <div class="categories_menu categories_three">
+                                <div class="categories_title">
+                                    <h2 class="categori_toggle">ALL CATEGORIES</h2>
+                                </div>
+                                <div class="categories_menu_toggle">
+                                    <ul>
+                                        <li class="menu_item_children"><a href="#">Brake Parts <i class="fa fa-angle-right"></i></a>
+                                            <ul class="categories_mega_menu">
+                                                <li class="menu_item_children"><a href="#">Dresses</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Sweater</a></li>
+                                                        <li><a href="">Evening</a></li>
+                                                        <li><a href="">Day</a></li>
+                                                        <li><a href="">Sports</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">Handbags</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Shoulder</a></li>
+                                                        <li><a href="">Satchels</a></li>
+                                                        <li><a href="">kids</a></li>
+                                                        <li><a href="">coats</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">shoes</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Ankle Boots</a></li>
+                                                        <li><a href="">Clog sandals </a></li>
+                                                        <li><a href="">run</a></li>
+                                                        <li><a href="">Books</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">Clothing</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Coats Jackets </a></li>
+                                                        <li><a href="">Raincoats</a></li>
+                                                        <li><a href="">Jackets</a></li>
+                                                        <li><a href="">T-shirts</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu_item_children"><a href="#"> Wheels & Tires <i class="fa fa-angle-right"></i></a>
+                                            <ul class="categories_mega_menu column_3">
+                                                <li class="menu_item_children"><a href="#">Chair</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Dining room</a></li>
+                                                        <li><a href="">bedroom</a></li>
+                                                        <li><a href=""> Home & Office</a></li>
+                                                        <li><a href="">living room</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">Lighting</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Ceiling Lighting</a></li>
+                                                        <li><a href="">Wall Lighting</a></li>
+                                                        <li><a href="">Outdoor Lighting</a></li>
+                                                        <li><a href="">Smart Lighting</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">Sofa</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Fabric Sofas</a></li>
+                                                        <li><a href="">Leather Sofas</a></li>
+                                                        <li><a href="">Corner Sofas</a></li>
+                                                        <li><a href="">Sofa Beds</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu_item_children"><a href="#"> Furnitured & Decor <i class="fa fa-angle-right"></i></a>
+                                            <ul class="categories_mega_menu column_2">
+                                                <li class="menu_item_children"><a href="#">Brake Tools</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Driveshafts</a></li>
+                                                        <li><a href="">Spools</a></li>
+                                                        <li><a href="">Diesel </a></li>
+                                                        <li><a href="">Gasoline</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">Emergency Brake</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Dolls for Girls</a></li>
+                                                        <li><a href="">Girls' Learning Toys</a></li>
+                                                        <li><a href="">Arts and Crafts for Girls</a></li>
+                                                        <li><a href="">Video Games for Girls</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu_item_children"><a href="#"> Turbo System <i class="fa fa-angle-right"></i></a>
+                                            <ul class="categories_mega_menu column_2">
+                                                <li class="menu_item_children"><a href="#">Check Trousers</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Building</a></li>
+                                                        <li><a href="">Electronics</a></li>
+                                                        <li><a href="">action figures </a></li>
+                                                        <li><a href="">specialty & boutique toy</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu_item_children"><a href="#">Calculators</a>
+                                                    <ul class="categorie_sub_menu">
+                                                        <li><a href="">Dolls for Girls</a></li>
+                                                        <li><a href="">Girls' Learning Toys</a></li>
+                                                        <li><a href="">Arts and Crafts for Girls</a></li>
+                                                        <li><a href="">Video Games for Girls</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#"> Lighting</a></li>
+                                        <li><a href="#"> Accessories</a></li>
+                                        <li><a href="#">Body Parts</a></li>
+                                        <li><a href="#">Networking</a></li>
+                                        <li><a href="#">Perfomance Filters</a></li>
+                                        <li><a href="#"> Engine Parts</a></li>
+                                        <li class="hidden"><a href="#">New Sofas</a></li>
+                                        <li class="hidden"><a href="#">Sleight Sofas</a></li>
+                                        <li><a href="#" id="more-btn"><i class="fa fa-plus" aria-hidden="true"></i> More Categories</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column2 col-lg-6 ">
+                            <div class="search_container">
+                                <form action="#">
+                                    <div class="hover_category">
+                                        <select class="select_option" name="select" id="categori2">
+                                            <option selected value="1">All Categories</option>
+                                            <option value="2">Accessories</option>
+                                            <option value="3">Accessories & More</option>
+                                            <option value="4">Butters & Eggs</option>
+                                            <option value="5">Camera & Video </option>
+                                            <option value="6">Mornitors</option>
+                                            <option value="7">Tablets</option>
+                                            <option value="8">Laptops</option>
+                                            <option value="9">Handbags</option>
+                                            <option value="10">Headphone & Speaker</option>
+                                            <option value="11">Herbs & botanicals</option>
+                                            <option value="12">Vegetables</option>
+                                            <option value="13">Shop</option>
+                                            <option value="14">Laptops & Desktops</option>
+                                            <option value="15">Watchs</option>
+                                            <option value="16">Electronic</option>
+                                        </select>
+                                    </div>
+                                    <div class="search_box">
+                                        <input placeholder="Search product..." type="text">
+                                        <button type="submit">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="column3 col-lg-3 col-md-6">
+                            <div class="header_bigsale">
+                                <a href="#">BIG SALE BLACK FRIDAY</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--header bottom end-->
+            </div>
+        </div>
+    </header>
+<!-- BREADCRUMB -->
+<div class="breadcrumb_content" style="background:#232f3e; padding:35px 0; color:#fff; text-align:center;">
+    <div class="container">
+        <h1 style="color:#fff; font-size:28px; font-weight:700; margin-bottom:8px;"><i class="fa fa-cogs me-2"></i>Frontend Theme & Industry Settings</h1>
+        <p style="color:#cbd5e1; font-size:15px; margin:0; max-width:700px; margin:0 auto;">
+          Configure industry presets, header styles, and brand color palettes in real-time. When you connect your backend admin panel later, this JSON configuration can be directly bound to your database!
+        </p>
+    </div>
+</div>
+
+<div class="settings_panel_wrap">
+    <div class="container">
+
+        <!-- 1. INDUSTRY & HOMEPAGE SELECTION -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-th-large"></i> 1. Choose Target Industry & Homepage Layout</h3>
+                <span class="badge bg-danger" style="font-size:12px; padding:6px 12px;">7 Home Styles Built-In</span>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-4">
+                    <!-- Industry 1: Electronics -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card active" data-industry="electronics" data-page="index.html" data-color="red" data-header="default">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/e8272b/ffffff?text=Electronics+Storefront" class="industry_img_thumb" alt="Electronics">
+                            <h4>Electronics & Gadgets (Home 1 Layout)</h4>
+                            <p>Classic mega marketplace. Vertical categories menu, multi-tab deal sliders, and 5-column product carousels.</p>
+                            <div class="industry_tags">
+                                <span>Home 1</span><span>Laptops</span><span>Phones</span><span>TV & Audio</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry 2: Fashion -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="fashion" data-page="index-2.html" data-color="dark" data-header="default">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/232f3e/ffffff?text=Fashion+Storefront" class="industry_img_thumb" alt="Fashion">
+                            <h4>Fashion & Apparel (Home 2 Layout)</h4>
+                            <p>Sportswear and clothing storefront. Wide modern banner layouts, featured apparel grids, and seasonal collections.</p>
+                            <div class="industry_tags">
+                                <span>Home 2</span><span>Men</span><span>Women</span><span>Sportswear</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry 3: Furniture -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="furniture" data-page="index-3.html" data-color="gold" data-header="default">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/b8860b/ffffff?text=Furniture+Storefront" class="industry_img_thumb" alt="Furniture">
+                            <h4>Furniture & Home Decor (Home 3 Layout)</h4>
+                            <p>Warm lifestyle theme. Multi-banner promo rows, living room categories, lighting, and interior accessories.</p>
+                            <div class="industry_tags">
+                                <span>Home 3</span><span>Sofas</span><span>Chairs</span><span>Decor</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry 4: Cosmetics -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="beauty" data-page="index-4.html" data-color="pink" data-header="dark">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/e91e63/ffffff?text=Cosmetics+Storefront" class="industry_img_thumb" alt="Beauty">
+                            <h4>Cosmetics & Skincare (Home 4 Layout)</h4>
+                            <p>Clean beauty aesthetic with high-contrast dark navigation, product discount tiles, and beauty bundles.</p>
+                            <div class="industry_tags">
+                                <span>Home 4</span><span>Skincare</span><span>Fragrance</span><span>Makeup</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry 5: Sports & Tech -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="sport" data-page="index-5.html" data-color="blue" data-header="default">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/0066cc/ffffff?text=Sports+Storefront" class="industry_img_thumb" alt="Sports">
+                            <h4>Sport Gear & Wearables (Home 5 Layout)</h4>
+                            <p>Full-width edge-to-edge hero slider, vertical live ticking countdown deal box, and activewear grids.</p>
+                            <div class="industry_tags">
+                                <span>Home 5</span><span>Smartwatches</span><span>Fitness</span><span>Apparel</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry 6: Gaming -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="gaming" data-page="index-6.html" data-color="purple" data-header="dark">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/7928ca/ffffff?text=Gaming+Storefront" class="industry_img_thumb" alt="Gaming">
+                            <h4>Gaming & PC Hardware (Home 6 Layout)</h4>
+                            <p>Cyberpunk neon accents, dual product showcase, new arrivals tabs, and gaming accessory filters.</p>
+                            <div class="industry_tags">
+                                <span>Home 6</span><span>GPUs</span><span>Consoles</span><span>Keyboards</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry 7: Grocery -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="industry_choice_card" data-industry="grocery" data-page="index-7.html" data-color="green" data-header="default">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x220/2e7d32/ffffff?text=Grocery+Storefront" class="industry_img_thumb" alt="Grocery">
+                            <h4>Grocery & Supermarket (Home 7 Layout)</h4>
+                            <p>Vibrant green supermarket layout, flash deal countdown cards, daily fresh produce, and organic food listings.</p>
+                            <div class="industry_tags">
+                                <span>Home 7</span><span>Fruits</span><span>Vegetables</span><span>Organic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. HEADER ARCHITECTURE -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-window-maximize"></i> 2. Header Architecture & Navigation</h3>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-3 align-items-stretch">
+                    <div class="col-md-4">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer header_opt_card active">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="header_style_radio" value="default" checked>
+                                <strong>Style 1: Classic Mega Bar</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Vertical category dropdown + centered search + right promo highlight button.</p>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer header_opt_card">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="header_style_radio" value="dark">
+                                <strong>Style 2: Dark Navy Pro</strong>
+                            </div>
+                            <p class="text-muted small mb-0">High-contrast solid dark blue header navigation with white typography.</p>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer header_opt_card">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="header_style_radio" value="clean">
+                                <strong>Style 3: Clean Fullwidth</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Expanded wide search bar with streamlined quick links and minimal clutter.</p>
+                        </label>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <h5 class="mb-3"><i class="fa fa-bars me-2"></i> "ALL CATEGORIES" Dropdown Default State</h5>
+                <div class="row g-3 align-items-stretch">
+                    <div class="col-md-6">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer categories_opt_card active">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="categories_state_radio" value="closed" checked>
+                                <strong>Closed by Default (Recommended)</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Starts collapsed on page load across all pages. Expands smoothly when user clicks "ALL CATEGORIES".</p>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer categories_opt_card">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="categories_state_radio" value="open">
+                                <strong>Open by Default (Classic Home 1)</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Remains permanently open beside the slider on Home 1 desktop, as originally designed in the theme demo.</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SHOP LAYOUT ARCHITECTURE -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-shopping-bag"></i> 3. Shop Layout Architecture & Style</h3>
+                <span class="badge bg-danger" style="font-size:12px; padding:6px 12px;">6 Layouts Available</span>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-4">
+                    <!-- Shop Style 1: Left Sidebar Grid -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="shop_choice_card active" data-shop-style="left-sidebar" data-page="shop/shop.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/232f3e/ffffff?text=Shop+Grid+Left+Sidebar" class="industry_img_thumb" alt="Left Sidebar">
+                            <h4>Grid with Left Sidebar (Default)</h4>
+                            <p>Classic e-commerce grid with product categories, price filter slider, brand checkboxes, and tag cloud in the left sidebar.</p>
+                            <div class="industry_tags">
+                                <span>Left Sidebar</span><span>3-Column Grid</span><span>Price Filter</span><span>Pagination</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Style 2: Full Width Grid -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="shop_choice_card" data-shop-style="fullwidth" data-page="shop/shop-fullwidth.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/e8272b/ffffff?text=Shop+Full+Width+Grid" class="industry_img_thumb" alt="Full Width Grid">
+                            <h4>Full Width 4-Column Grid</h4>
+                            <p>Maximized screen real estate layout. Edge-to-edge product cards without sidebars for high-density modern browsing.</p>
+                            <div class="industry_tags">
+                                <span>Full Width</span><span>4-Column Grid</span><span>Edge-to-Edge</span><span>Clean</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Style 3: Right Sidebar Grid -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="shop_choice_card" data-shop-style="right-sidebar" data-page="shop/shop-right-sidebar.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/0066cc/ffffff?text=Shop+Grid+Right+Sidebar" class="industry_img_thumb" alt="Right Sidebar">
+                            <h4>Grid with Right Sidebar</h4>
+                            <p>Alternative catalog orientation. Products take focus on the left with sticky search, price range filter, and category widgets on the right.</p>
+                            <div class="industry_tags">
+                                <span>Right Sidebar</span><span>3-Column Grid</span><span>Product Focus</span><span>Filter Widgets</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Style 4: List View -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="shop_choice_card" data-shop-style="list" data-page="shop/shop-list.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/2e7d32/ffffff?text=Shop+List+View" class="industry_img_thumb" alt="Shop List View">
+                            <h4>Standard List View (With Sidebar)</h4>
+                            <p>Horizontal row-by-row cards featuring extended product descriptions, immediate action buttons, and ratings with left sidebar.</p>
+                            <div class="industry_tags">
+                                <span>List View</span><span>Left Sidebar</span><span>Detailed Rows</span><span>Fast Comparison</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Style 5: Full Width List View -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="shop_choice_card" data-shop-style="fullwidth-list" data-page="shop/shop-fullwidth-list.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/b8860b/ffffff?text=Shop+Full+Width+List" class="industry_img_thumb" alt="Full Width List">
+                            <h4>Full Width List View</h4>
+                            <p>Expansive full-width horizontal cards showing comprehensive descriptions and direct add-to-cart buttons across the viewport.</p>
+                            <div class="industry_tags">
+                                <span>Full Width</span><span>Horizontal Cards</span><span>High Detail</span><span>Specs View</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Style 6: Right Sidebar List View -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="shop_choice_card" data-shop-style="right-sidebar-list" data-page="shop/shop-right-sidebar-list.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/7928ca/ffffff?text=Shop+Right+Sidebar+List" class="industry_img_thumb" alt="Right Sidebar List">
+                            <h4>Right Sidebar List View</h4>
+                            <p>List comparison view with filter controls and widgets positioned cleanly on the right sidebar.</p>
+                            <div class="industry_tags">
+                                <span>Right Sidebar</span><span>List View</span><span>Clean Filter</span><span>Direct Buy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 4. PRODUCT PAGE ARCHITECTURE & DETAIL STYLES -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-cube"></i> 4. Product Page Architecture & Detail Styles</h3>
+                <span class="badge bg-danger" style="font-size:12px; padding:6px 12px;">5 Layouts Available</span>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-4">
+                    <!-- Product Style 1: Standard Tabbed -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product_choice_card active" data-product-style="standard" data-page="products/product-details.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/232f3e/ffffff?text=Product+Standard+Tabbed" class="industry_img_thumb" alt="Product Standard">
+                            <h4>Standard Tabbed Layout</h4>
+                            <p>Classic high-converting single product page with interactive gallery zoom, variant selectors, and full tabbed specifications.</p>
+                            <div class="industry_tags">
+                                <span>Main Gallery</span><span>Tabbed Specs</span><span>Customer Reviews</span><span>Related Carousel</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Style 2: Left Sidebar with Promos -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product_choice_card" data-product-style="sidebar" data-page="products/product-sidebar.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/e8272b/ffffff?text=Product+Left+Sidebar" class="industry_img_thumb" alt="Product Sidebar">
+                            <h4>Sidebar &amp; Promo Column</h4>
+                            <p>Enhanced conversion layout with persistent left sidebar showcasing recently viewed items, categories, and special offers.</p>
+                            <div class="industry_tags">
+                                <span>Left Sidebar</span><span>Recently Viewed</span><span>Promo Banners</span><span>Category Nav</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Style 3: Variable Swatches -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product_choice_card" data-product-style="variable" data-page="products/variable-product.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/0066cc/ffffff?text=Product+Variable+Swatches" class="industry_img_thumb" alt="Variable Product">
+                            <h4>Variable Swatches &amp; Size Guide</h4>
+                            <p>Multi-attribute product layout with interactive color swatches, dynamic pricing, live stock states, and interactive size guide modal.</p>
+                            <div class="industry_tags">
+                                <span>Color Swatches</span><span>Size Selector</span><span>Dynamic Price</span><span>Size Modal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Style 4: Flash Deal Countdown -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product_choice_card" data-product-style="countdown" data-page="products/product-countdown.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/2e7d32/ffffff?text=Product+Flash+Countdown" class="industry_img_thumb" alt="Countdown Deal">
+                            <h4>Flash Deal &amp; Scarcity Countdown</h4>
+                            <p>Urgency-driven campaign layout featuring live animated countdown timers, stock progress indicator, and deal callouts.</p>
+                            <div class="industry_tags">
+                                <span>Live Countdown</span><span>Stock Scarcity</span><span>Hurry Progress</span><span>Flash Deal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Style 5: Grouped Bundle Package -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product_choice_card" data-product-style="grouped" data-page="products/product-grouped.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/b8860b/ffffff?text=Product+Grouped+Bundle" class="industry_img_thumb" alt="Grouped Bundle">
+                            <h4>Grouped Bundle &amp; Kit Package</h4>
+                            <p>Bundled kit layout enabling customers to configure quantities for multiple related items and purchase complete sets with 1-click.</p>
+                            <div class="industry_tags">
+                                <span>Item Checklist</span><span>Live Bundle Total</span><span>Multi-Add Cart</span><span>Office Kit</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. BLOG LAYOUT ARCHITECTURE -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-newspaper-o"></i> 5. Blog Layout Architecture & Style</h3>
+                <span class="badge bg-danger" style="font-size:12px; padding:6px 12px;">4 Layouts Available</span>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-4">
+                    <!-- Blog Style 1: Right Sidebar -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="blog_choice_card active" data-blog-style="sidebar" data-page="blog/blog.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/232f3e/ffffff?text=Blog+Right+Sidebar" class="industry_img_thumb" alt="Blog with Right Sidebar">
+                            <h4>Standard Right Sidebar</h4>
+                            <p>Classic e-commerce magazine layout with search, category archives, recent posts, and tag cloud on the right.</p>
+                            <div class="industry_tags">
+                                <span>Right Sidebar</span><span>Search Widget</span><span>Tag Cloud</span><span>Recent Posts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blog Style 2: Left Sidebar -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="blog_choice_card" data-blog-style="left-sidebar" data-page="blog/blog-sidebar.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/7928ca/ffffff?text=Blog+Left+Sidebar" class="industry_img_thumb" alt="Blog with Left Sidebar">
+                            <h4>Standard Left Sidebar</h4>
+                            <p>Editorial layout with navigation, search, and category widgets anchored cleanly on the left sidebar.</p>
+                            <div class="industry_tags">
+                                <span>Left Sidebar</span><span>Category Nav</span><span>Archive Feed</span><span>Search Widget</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blog Style 3: Full Width Grid -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="blog_choice_card" data-blog-style="fullwidth" data-page="blog/blog-fullwidth.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/e8272b/ffffff?text=Blog+Full+Width" class="industry_img_thumb" alt="Blog Full Width">
+                            <h4>Full Width 2-Column Grid</h4>
+                            <p>Edge-to-edge modern grid layout featuring prominent hero article followed by an engaging 2-column post grid.</p>
+                            <div class="industry_tags">
+                                <span>12-Column Grid</span><span>Featured Hero</span><span>2-Column Cards</span><span>Pagination</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blog Style 4: Clean No Sidebar -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="blog_choice_card" data-blog-style="no-sidebar" data-page="blog/blog-no-sidebar.html">
+                            <span class="industry_badge_active">Selected</span>
+                            <img src="https://placehold.co/400x200/0066cc/ffffff?text=Blog+No+Sidebar" class="industry_img_thumb" alt="Blog No Sidebar">
+                            <h4>Clean Centered (No Sidebar)</h4>
+                            <p>Distraction-free reading experience with wide stacked articles, large typography, and centered layout.</p>
+                            <div class="industry_tags">
+                                <span>No Sidebar</span><span>Distraction Free</span><span>Centered Feed</span><span>Editorial</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. BRAND COLOR PALETTE -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-palette"></i> 6. Brand Accent Color Palette</h3>
+            </div>
+            <div class="settings_card_body">
+                <div class="color_picker_grid">
+                    <div class="color_option_card active" data-color="red">
+                        <div class="color_sample_circle" style="background:#e8272b;"></div>
+                        <div class="fw-bold small">Antomi Red</div>
+                        <span class="text-muted" style="font-size:11px;">#e8272b</span>
+                    </div>
+                    <div class="color_option_card" data-color="blue">
+                        <div class="color_sample_circle" style="background:#0066cc;"></div>
+                        <div class="fw-bold small">Royal Blue</div>
+                        <span class="text-muted" style="font-size:11px;">#0066cc</span>
+                    </div>
+                    <div class="color_option_card" data-color="green">
+                        <div class="color_sample_circle" style="background:#2e7d32;"></div>
+                        <div class="fw-bold small">Emerald Green</div>
+                        <span class="text-muted" style="font-size:11px;">#2e7d32</span>
+                    </div>
+                    <div class="color_option_card" data-color="gold">
+                        <div class="color_sample_circle" style="background:#b8860b;"></div>
+                        <div class="fw-bold small">Luxury Gold</div>
+                        <span class="text-muted" style="font-size:11px;">#b8860b</span>
+                    </div>
+                    <div class="color_option_card" data-color="purple">
+                        <div class="color_sample_circle" style="background:#7928ca;"></div>
+                        <div class="fw-bold small">Esports Neon</div>
+                        <span class="text-muted" style="font-size:11px;">#7928ca</span>
+                    </div>
+                    <div class="color_option_card" data-color="dark">
+                        <div class="color_sample_circle" style="background:#1a1a1a;"></div>
+                        <div class="fw-bold small">Midnight Black</div>
+                        <span class="text-muted" style="font-size:11px;">#1a1a1a</span>
+                    </div>
+                    <div class="color_option_card" data-color="pink">
+                        <div class="color_sample_circle" style="background:#e91e63;"></div>
+                        <div class="fw-bold small">Rose Pink</div>
+                        <span class="text-muted" style="font-size:11px;">#e91e63</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. DISPLAY COLOR MODE (LIGHT / DARK / SYSTEM) -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-adjust"></i> 7. Display Theme Color Mode</h3>
+            </div>
+            <div class="settings_card_body">
+                <div class="row g-3 align-items-stretch">
+                    <div class="col-md-4">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer header_opt_card mode_opt_card">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="color_mode_radio" value="light">
+                                <strong><i class="fa fa-sun text-warning me-1"></i> Light Mode</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Clean, high-brightness white background with crisp contrast text and subtle dividers.</p>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer header_opt_card mode_opt_card">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="color_mode_radio" value="dark">
+                                <strong><i class="fa fa-moon text-primary me-1"></i> Dark Mode</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Deep slate-dark surfaces (#0f172a), muted card borders, and high-legibility light typography.</p>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-check-label border p-3 rounded w-100 h-100 cursor-pointer header_opt_card mode_opt_card active">
+                            <div class="d-flex align-items-center mb-1">
+                                <input class="form-check-input me-2 mt-0" type="radio" name="color_mode_radio" value="system" checked>
+                                <strong><i class="fa fa-desktop text-success me-1"></i> System Auto Mode</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Detects the visitor's operating system preferences and switches seamlessly in real time.</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. LIVE JSON CONFIG & BACKEND READY SCHEMA -->
+        <div class="settings_card">
+            <div class="settings_card_header">
+                <h3><i class="fa fa-code"></i> 8. Live Configuration State (Admin Panel Schema)</h3>
+                <button class="btn btn-sm btn-outline-light" id="copyJsonBtn"><i class="fa fa-copy me-1"></i> Copy JSON</button>
+            </div>
+            <div class="settings_card_body">
+                <p class="text-muted small mb-2">This is the JSON state currently applied. When you connect your backend admin panel, this exact object can be stored in your database:</p>
+                <div class="json_preview_box" id="jsonConfigDisplay"></div>
+            </div>
+        </div>
+
+        <!-- STICKY ACTION BAR -->
+        <div class="action_bar_sticky">
+            <div>
+                <strong id="activeSettingSummary" class="text-dark">Electronics Preset &bull; Antomi Red &bull; Style 1 Header</strong>
+                <div class="text-muted small">Saved automatically to browser storage</div>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary" id="resetConfigBtn"><i class="fa fa-undo me-1"></i> Reset</button>
+                <button class="btn btn-danger px-4" id="launchStorefrontBtn" style="background:#e8272b; font-weight:600;"><i class="fa fa-external-link-alt me-1"></i> Launch Storefront</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function($) {
+    'use strict';
+
+    var currentConfig = {
+        industry: 'electronics',
+        target_page: 'index.html',
+        color: 'red',
+        header_style: 'default',
+        categories_closed: false,
+        theme_mode: 'system',
+        shop_style: 'left-sidebar',
+        shop_page: 'shop/shop.html',
+        product_style: 'standard',
+        product_page: 'products/product-details.html',
+        blog_style: 'sidebar',
+        blog_page: 'blog/blog.html',
+        updated_at: new Date().toISOString()
+    };
+
+    // Load from localStorage if present
+    try {
+        var saved = localStorage.getItem('antomi_theme_config');
+        if (saved) {
+            var parsed = JSON.parse(saved);
+            currentConfig.industry = parsed.industry || 'electronics';
+            currentConfig.target_page = parsed.target_page || (parsed.industry === 'electronics' ? 'index.html' : 'index-2.html');
+            currentConfig.color = parsed.color || 'red';
+            currentConfig.header_style = parsed.headerStyle || parsed.header_style || 'default';
+            currentConfig.categories_closed = false;
+            currentConfig.theme_mode = parsed.themeMode || parsed.theme_mode || 'system';
+            currentConfig.shop_style = parsed.shop_style || parsed.shopStyle || 'left-sidebar';
+            currentConfig.shop_page = parsed.shop_page || parsed.shopPage || 'shop/shop.html';
+            currentConfig.product_style = parsed.product_style || parsed.productStyle || 'standard';
+            currentConfig.product_page = parsed.product_page || parsed.productPage || 'products/product-details.html';
+            currentConfig.blog_style = parsed.blog_style || parsed.blogStyle || 'sidebar';
+            currentConfig.blog_page = parsed.blog_page || parsed.blogPage || 'blog/blog.html';
+        }
+    } catch(e) {}
+
+    function updateUI() {
+        // Industry cards
+        $('.industry_choice_card').removeClass('active');
+        $('.industry_choice_card[data-industry="' + currentConfig.industry + '"]').addClass('active');
+
+        // Shop style cards
+        $('.shop_choice_card').removeClass('active');
+        $('.shop_choice_card[data-shop-style="' + currentConfig.shop_style + '"]').addClass('active');
+
+        // Product style cards
+        $('.product_choice_card').removeClass('active');
+        $('.product_choice_card[data-product-style="' + currentConfig.product_style + '"]').addClass('active');
+
+        // Blog style cards
+        $('.blog_choice_card').removeClass('active');
+        $('.blog_choice_card[data-blog-style="' + currentConfig.blog_style + '"]').addClass('active');
+
+        // Color cards
+        $('.color_option_card').removeClass('active');
+        $('.color_option_card[data-color="' + currentConfig.color + '"]').addClass('active');
+
+        // Header radios
+        $('input[name="header_style_radio"]').prop('checked', false);
+        $('input[name="header_style_radio"][value="' + currentConfig.header_style + '"]').prop('checked', true);
+        $('.header_opt_card:not(.mode_opt_card)').removeClass('active');
+        $('input[name="header_style_radio"]:checked').closest('.header_opt_card').addClass('active');
+
+        // Categories radios
+        var catVal = currentConfig.categories_closed ? 'closed' : 'open';
+        $('input[name="categories_state_radio"]').prop('checked', false);
+        $('input[name="categories_state_radio"][value="' + catVal + '"]').prop('checked', true);
+        $('.categories_opt_card').removeClass('active');
+        $('input[name="categories_state_radio"]:checked').closest('.categories_opt_card').addClass('active');
+
+        // Mode radios
+        var modeVal = currentConfig.theme_mode || 'system';
+        $('input[name="color_mode_radio"]').prop('checked', false);
+        $('input[name="color_mode_radio"][value="' + modeVal + '"]').prop('checked', true);
+        $('.mode_opt_card').removeClass('active');
+        $('input[name="color_mode_radio"]:checked').closest('.mode_opt_card').addClass('active');
+
+        // Apply dynamically via global API
+        if (window.antomiApplyTheme) {
+            window.antomiApplyTheme({
+                industry: currentConfig.industry,
+                target_page: currentConfig.target_page,
+                color: currentConfig.color,
+                headerStyle: currentConfig.header_style,
+                categoriesClosed: currentConfig.categories_closed,
+                themeMode: currentConfig.theme_mode,
+                shopStyle: currentConfig.shop_style,
+                shopPage: currentConfig.shop_page,
+                productStyle: currentConfig.product_style,
+                productPage: currentConfig.product_page,
+                blogStyle: currentConfig.blog_style,
+                blogPage: currentConfig.blog_page
+            });
+        }
+
+        // JSON preview
+        currentConfig.updated_at = new Date().toISOString();
+        $('#jsonConfigDisplay').text(JSON.stringify(currentConfig, null, 2));
+
+        // Summary text
+        $('#activeSettingSummary').text(
+            currentConfig.industry.toUpperCase() + ' Preset • ' + 
+            currentConfig.color.toUpperCase() + ' • ' + 
+            'Mode: ' + currentConfig.theme_mode.toUpperCase() + ' • ' +
+            'Shop: ' + currentConfig.shop_style.toUpperCase() + ' • ' +
+            'Product: ' + currentConfig.product_style.toUpperCase() + ' • ' +
+            'Blog: ' + currentConfig.blog_style.toUpperCase() + ' • ' +
+            'Header: ' + currentConfig.header_style + ' • ' +
+            'Categories: ' + (currentConfig.categories_closed ? 'Closed' : 'Open')
+        );
+
+        // Save to localStorage
+        localStorage.setItem('antomi_theme_config', JSON.stringify({
+            industry: currentConfig.industry,
+            color: currentConfig.color,
+            headerStyle: currentConfig.header_style,
+            target_page: currentConfig.target_page,
+            categoriesClosed: currentConfig.categories_closed,
+            themeMode: currentConfig.theme_mode,
+            shop_style: currentConfig.shop_style,
+            shop_page: currentConfig.shop_page,
+            product_style: currentConfig.product_style,
+            product_page: currentConfig.product_page,
+            blog_style: currentConfig.blog_style,
+            blog_page: currentConfig.blog_page
+        }));
+    }
+
+    updateUI();
+
+    // Event: Click Industry Card
+    $('.industry_choice_card').on('click', function() {
+        currentConfig.industry = $(this).data('industry');
+        currentConfig.target_page = $(this).data('page');
+        currentConfig.color = $(this).data('color');
+        if ($(this).data('header')) {
+            currentConfig.header_style = $(this).data('header');
+        }
+        updateUI();
+    });
+
+    // Event: Click Shop Style Card
+    $('.shop_choice_card').on('click', function() {
+        currentConfig.shop_style = $(this).data('shop-style');
+        currentConfig.shop_page = $(this).data('page');
+        updateUI();
+    });
+
+    // Event: Click Product Style Card
+    $('.product_choice_card').on('click', function() {
+        currentConfig.product_style = $(this).data('product-style');
+        currentConfig.product_page = $(this).data('page');
+        updateUI();
+    });
+
+    // Event: Click Blog Style Card
+    $('.blog_choice_card').on('click', function() {
+        currentConfig.blog_style = $(this).data('blog-style');
+        currentConfig.blog_page = $(this).data('page');
+        updateUI();
+    });
+
+    // Event: Click Color Card
+    $('.color_option_card').on('click', function() {
+        currentConfig.color = $(this).data('color');
+        updateUI();
+    });
+
+    // Event: Change Header Radio
+    $('input[name="header_style_radio"]').on('change', function() {
+        currentConfig.header_style = $(this).val();
+        updateUI();
+    });
+
+    // Event: Change Categories Radio
+    $('input[name="categories_state_radio"]').on('change', function() {
+        currentConfig.categories_closed = ($(this).val() === 'closed');
+        updateUI();
+    });
+
+    // Event: Change Color Mode Radio
+    $('input[name="color_mode_radio"]').on('change', function() {
+        currentConfig.theme_mode = $(this).val();
+        updateUI();
+    });
+
+    // Event: Copy JSON
+    $('#copyJsonBtn').on('click', function() {
+        var jsonText = $('#jsonConfigDisplay').text();
+        navigator.clipboard.writeText(jsonText).then(function() {
+            alert('Theme configuration JSON copied to clipboard!');
+        });
+    });
+
+    // Event: Reset
+    $('#resetConfigBtn').on('click', function() {
+        currentConfig = {
+            industry: 'electronics',
+            target_page: 'index.html',
+            color: 'red',
+            header_style: 'default',
+            categories_closed: false,
+            theme_mode: 'system',
+            shop_style: 'left-sidebar',
+            shop_page: 'shop/shop.html',
+            product_style: 'standard',
+            product_page: 'products/product-details.html',
+            blog_style: 'sidebar',
+            blog_page: 'blog/blog.html',
+            updated_at: new Date().toISOString()
+        };
+        updateUI();
+    });
+
+    // Event: Launch Storefront
+    $('#launchStorefrontBtn').on('click', function() {
+        window.location.href = currentConfig.target_page;
+    });
+
+})(jQuery);
+</script>
+</body>
+</html>

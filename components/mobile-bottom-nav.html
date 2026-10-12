@@ -1,0 +1,37 @@
+<!-- Mobile App Bottom Navigation Bar Component -->
+<div class="mobile_search_backdrop"></div>
+<div class="mobile_search_sheet">
+    <div class="mobile_search_input_wrap">
+        <input type="text" placeholder="Search products, brands, categories..." id="mobileQuickSearchInput">
+        <button type="button" id="mobileQuickSearchSubmit"><i class="fa fa-search"></i></button>
+    </div>
+    <button type="button" class="mobile_search_close_btn" title="Close"><i class="fa fa-times"></i></button>
+</div>
+
+<nav class="mobile_bottom_nav">
+    <a href="../index.html" class="mobile_bottom_item" data-nav="home">
+        <div class="mobile_bottom_icon_wrap"><i class="fa fa-home"></i></div>
+        <span class="nav_text">Home</span>
+    </a>
+    <a href="../shop/shop.html" class="mobile_bottom_item" data-nav="shop">
+        <div class="mobile_bottom_icon_wrap"><i class="fa fa-th-large"></i></div>
+        <span class="nav_text">Shop</span>
+    </a>
+    <a href="../account/cart.html" class="mobile_bottom_item hero_center_item" data-nav="cart">
+        <div class="hero_center_circle">
+            <div class="mobile_bottom_icon_wrap">
+                <i class="fa fa-shopping-bag"></i>
+                <span class="mobile_bottom_badge mobile_cart_badge">2</span>
+            </div>
+        </div>
+        <span class="nav_text">Cart</span>
+    </a>
+    <button type="button" class="mobile_bottom_item" id="mobileNavSearchBtn" data-nav="search">
+        <div class="mobile_bottom_icon_wrap"><i class="fa fa-search"></i></div>
+        <span class="nav_text">Search</span>
+    </button>
+    <a href="../account/my-account.html" class="mobile_bottom_item" data-nav="account">
+        <div class="mobile_bottom_icon_wrap"><i class="fa fa-user-o"></i></div>
+        <span class="nav_text">Account</span>
+    </a>
+</nav>
